@@ -242,7 +242,7 @@ def select
     if $flag == 1 
       $flag=0    
       current_user.courses.delete(@course) 
-      #current_user.courses<<@course
+      current_user.courses<<@course
       flash={:warning => "您已经选择该课程,选课失败"}     
       redirect_to courses_path, flash: flash    
 

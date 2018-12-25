@@ -11,12 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161109084337) do
+ActiveRecord::Schema.define(version: 20181225092756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "courses", force: :cascade do |t|
+  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "courses", id: :bigserial, force: :cascade do |t|
     t.string   "name"
     t.string   "course_code"
     t.string   "course_type"
@@ -24,29 +30,31 @@ ActiveRecord::Schema.define(version: 20161109084337) do
     t.string   "exam_type"
     t.string   "credit"
     t.integer  "limit_num"
-    t.integer  "student_num",   default: 0
+    t.integer  "student_num",             default: 0
     t.string   "class_room"
     t.string   "course_time"
     t.string   "course_week"
-    t.integer  "teacher_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.boolean  "open",          default: false
-    t.string "guidline"
+    t.integer  "teacher_id",    limit: 8
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.boolean  "open",                    default: false
+    t.string   "guidline"
   end
 
-  create_table "grades", force: :cascade do |t|
-    t.integer  "course_id"
-    t.integer  "user_id"
+  add_index "courses", ["teacher_id"], name: "index_courses_on_teacher_id", using: :btree
+
+  create_table "grades", id: :bigserial, force: :cascade do |t|
+    t.integer  "course_id",  limit: 8
+    t.integer  "user_id",    limit: 8
     t.integer  "grade"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   add_index "grades", ["course_id"], name: "index_grades_on_course_id", using: :btree
   add_index "grades", ["user_id"], name: "index_grades_on_user_id", using: :btree
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :bigserial, force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.string   "num"
