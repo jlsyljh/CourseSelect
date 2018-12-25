@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2">
+      <%= render "shared/sidenav" %>
+    </div>
+
+    <div class="col-sm-10">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">设置学位课</h3>
+        </div>
+        <div class="panel-body" style="min-height: 450px">
+          <p>以下是可以设为学位课的课程</p>
+          <table class="table table-responsive table-condensed table-hover">
+            <thead>
+            <tr>
+              <th>课程编号</th>
+              <th>课程名称</th>
+              <th>课时/学分</th>
+              <th>课程类型</th>
+              <th>操作</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <% @course.each do |course| %>
+              <tr>
+                <td><%= course.course_code %></td>
+                <td><%= course.name %></td>
+                <td><%= course.credit %></td>
+                <td><%= course.course_type %></td>
+                <td><%= link_to "加入", join_degree_course_path(course), class: 'btn-sm btn-danger' %></td>
+              </tr>
+            <% end %>
+            </tbody>
+
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

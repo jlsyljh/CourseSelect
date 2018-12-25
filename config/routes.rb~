@@ -23,13 +23,9 @@ Rails.application.routes.draw do
       get :quit
       get :open
       get :close
-      get :join_degree
     end
     collection do
       get :list
-      get :show_credits
-      get :degree_course
-      get :table
     end
   end
 

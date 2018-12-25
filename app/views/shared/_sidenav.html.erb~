@@ -47,24 +47,6 @@
                   <span class="label label-info pull-right"><%= current_user.courses.count %></span>
               <% end %>
             </li>
-            <li class="list-group-item">
-              <%= link_to degree_course_courses_path do %>
-                  <span class="glyphicon glyphicon-chevron-right"></span> 设置学位课
-                  <span class="label label-info pull-right"></span>
-              <% end %>
-            </li>
-            <li class="list-group-item">
-              <%= link_to show_credits_courses_path do %>
-                  <span class="glyphicon glyphicon-chevron-right"></span> 学分提示
-                  <span class="label label-info pull-right"></span>
-              <% end %>
-            </li>
-            <li class="list-group-item">
-              <%= link_to table_courses_path do %>
-                <span class="glyphicon glyphicon-chevron-right"></span> 课程表
-                <span class="label label-info pull-right"></span>
-              <% end %>
-            </li>
         <% end %>
 
       </ul>
