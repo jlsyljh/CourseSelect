@@ -14,3 +14,158 @@ zh-CN:
         zero: "暂无%{model}记录"
     page_gap: "…"
     previous_label: "上一页"
+  admin:
+    js:
+      true: True
+      false: False
+      is_present: Is present
+      is_blank: Is blank
+      date: Date ...
+      between_and_: Between ... and ...
+      today: Today
+      yesterday: Yesterday
+      this_week: This week
+      last_week: Last week
+      number: Number ...
+      contains: Contains
+      is_exactly: Is exactly
+      starts_with: Starts with
+      ends_with: Ends with
+      too_many_objects: "Too many objects, use search box above"
+      no_objects: "No objects found"
+    loading: "加载中..."
+    toggle_navigation: Toggle navigation
+    home:
+      name: "主页"
+    pagination:
+      previous: "&laquo; 前一页"
+      next: "后一页 &raquo;"
+      truncate: "..."
+    misc:
+      search: "查找"
+      filter: "请输入关键词"
+      refresh: "搜索"
+      show_all: "显示所有项目"
+      add_filter: "添加过滤器"
+      bulk_menu_title: "选中的项目"
+      remove: "Remove"
+      add_new: "Add new"
+      chosen: "Chosen %{name}"
+      chose_all: "全选"
+      clear_all: "清除全选"
+      up: "Up"
+      down: "Down"
+      navigation: "导航栏"
+      navigation_static_label: "Links"
+      log_out: "Log out"
+      ago: "前"
+      more: "Plus %{count} more %{models_name}"
+    flash:
+      successful: "%{name}成功%{action}"
+      error: "%{name}失败%{action}"
+      noaction: "未发生更改！"
+      model_not_found: "Model '%{model}'未找到！"
+      object_not_found: "%{model} with id '%{id}'未找到！"
+    table_headers:
+      model_name: "Model"
+      last_used: "上次使用"
+      last_created: "最后创建"
+      records: "记录"
+      username: "用户"
+      changes: "变化"
+      created_at: "日期/时间"
+      item: "项目"
+      message: "信息"
+    actions:
+      dashboard:
+        title: "控制面板主页"
+        menu: "控制面板"
+        breadcrumb: "控制面板主页"
+      demo:
+        title: "选课开放功能"
+        menu: "选课开放功能"
+        breadcrumb: "选课开放功能"
+      index:
+        title: "%{model_label_plural}列表"
+        menu: "%{model_label_plural}列表"
+        breadcrumb: "%{model_label_plural}列表"
+      show:
+        title: "%{model_label} '%{object_label}'详情"
+        menu: "详情"
+        breadcrumb: "%{object_label}"
+      show_in_app:
+        menu: "Show in app"
+      new:
+        title: "添加新%{model_label_plural}"
+        menu: "添加新%{model_label_plural}"
+        breadcrumb: "添加新%{model_label_plural}"
+        link: "添加新%{model_label}"
+        done: "created"
+      edit:
+        title: "编辑%{model_label} '%{object_label}'"
+        menu: "编辑"
+        breadcrumb: "编辑"
+        link: "编辑这个%{model_label}"
+        done: "updated"
+      delete:
+        title: "删除%{model_label} '%{object_label}'"
+        menu: "删除"
+        breadcrumb: "删除"
+        link: "删除这个%{model_label}"
+        done: "deleted"
+      bulk_delete:
+        title: "删除%{model_label_plural}"
+        menu: "Multiple delete"
+        breadcrumb: "Multiple delete"
+        bulk_link: "删除选中的%{model_label_plural}"
+      export:
+        title: "打印%{model_label_plural}"
+        menu: "打印%{model_label_plural}"
+        breadcrumb: "打印%{model_label_plural}"
+        link: "打印找到的%{model_label_plural}"
+        bulk_link: "打印选择的%{model_label_plural}"
+        done: "exported"
+      history_index:
+        title: "%{model_label_plural}历史"
+        menu: "%{model_label_plural}历史"
+        breadcrumb: "%{model_label_plural}历史"
+      history_show:
+        title: "%{model_label} '%{object_label}'的历史"
+        menu: "历史"
+        breadcrumb: "历史"
+    form:
+      cancel: "取消"
+      basic_info: "Basic info"
+      required: "必填"
+      optional: "可选"
+      one_char: "character"
+      char_length_up_to: "最大长度为"
+      char_length_of: "length of"
+      save: "保存"
+      save_and_add_another: "保存并添加下一个"
+      save_and_edit: "保存并编辑"
+      all_of_the_following_related_items_will_be_deleted: "下列相关条目将会被删除或受到影响:"
+      are_you_sure_you_want_to_delete_the_object: "你确定要删除这个%{model_name}吗？"
+      confirmation: "是的, 我确定"
+      bulk_delete: "The following objects will be deleted, which may delete or orphan some of their related dependencies:"
+      new_model: "%{name} (new)"
+    export:
+      confirmation: "打印成%{name}格式"
+      select: "选择要打印的属性"
+      select_all_fields: "选择所有的属性"
+      fields_from: "%{name}属性"
+      fields_from_associated: "相关的%{name}属性"
+      display: "Display %{name}: %{type}"
+      options_for: "%{name}格式选项"
+      empty_value_for_associated_objects: "<empty>"
+      click_to_reverse_selection: 'Click to reverse selection'
+      csv:
+        header_for_root_methods: "%{name}" # 'model' is available
+        header_for_association_methods: "%{name} [%{association}]"
+        encoding_to: "编码"
+        encoding_to_help: "请选择输出编码，默认为%{name}"
+        skip_header: "无表头"
+        skip_header_help: "不打印属性描述"
+        default_col_sep: ","
+        col_sep: "列分隔符"
+        col_sep_help: "默认为'%{value}'" # value is default_col_sep

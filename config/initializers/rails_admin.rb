@@ -1,3 +1,4 @@
+require "#{Rails.root}/lib/rails_admin/demo.rb"
 RailsAdmin.config do |config|
 
   # config.main_app_name = ["Cool app", "BackOffice"]
@@ -8,6 +9,18 @@ RailsAdmin.config do |config|
 
   config.included_models = ['User','Course','Grade']
 
+  config.model 'User' do
+    label "用户" 
+    label_plural "用户"
+  end
+  config.model 'Course' do
+    label "课程" 
+    label_plural "课程"
+  end
+  config.model 'Grade' do
+    label "成绩" 
+    label_plural "成绩"
+  end
   # config.model ['Relationship'] do
   #   navigation_label 'Association'
   # end
@@ -58,5 +71,6 @@ RailsAdmin.config do |config|
     delete
     history_show
     # show_in_app
+    demo
   end
 end

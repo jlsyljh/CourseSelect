@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+ENV['RAILS_ADMIN_THEME'] = 'material'
+
 module Vim
   class Application < Rails::Application
     config.i18n.default_locale = "zh-CN"
