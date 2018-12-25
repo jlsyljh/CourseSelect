@@ -3,14 +3,11 @@
 ### [中文教程1](http://blog.csdn.net/ppp8300885/article/details/52594839) [中文教程2](http://blog.csdn.net/ppp8300885/article/details/52601560) [中文教程3](http://blog.csdn.net/ppp8300885/article/details/52669749) [Wiki](https://github.com/PENGZhaoqing/CourseSelect/wiki)
 
 
-这个样本系统是基于国科大研究生课程 (高级软件工程) 开发的项目,目的是帮助入门者学习RoR (Ruby on Rails),
+这个样本系统是由谢文涛、王仿、李建辉基于国科大研究生课程 (高级软件工程) 开发的项目,目的是帮助入门者学习RoR (Ruby on Rails),
 
-适合新学者的入手的第一个项目 ([演示Demo戳这里](https://courseselect.herokuapp.com/ ))，入门者可以在这个样本系统上增加更多的功能:
+适合新学者的入手的第一个项目 ([演示Demo戳这里](http://188.131.151.46/ ))，入门者可以在这个样本系统上增加更多的功能:
 
-* 处理选课冲突、控制选课人数
-* 统计选课学分，学位课等
-* 增加选课的开放、关闭功能
-* 自定义管理员后台
+
 * 基于OAuth的授权登陆
 * Excel格式的数据导入
 * 绑定用户邮箱（实现注册激活，忘记密码等）
@@ -23,6 +20,10 @@
 * 老师动态增加，删除课程
 * 老师对课程下的学生添加、修改成绩
 * 权限控制：老师和学生只能看到自己相关课程信息
+* 处理选课冲突、控制选课人数
+* 统计选课学分，学位课等
+* 增加选课的开放、关闭功能
+* 自定义管理员后台
 
 **如果觉得好，给项目点颗星吧～**
 
@@ -86,23 +87,6 @@ $ rails s
 密码：`password`
 
 账号中数字都可以替换成2,3...等等
-
-
-## Heroku云部署
-
-项目可直接在Heroku上免费部署
-
-1.fork此项目到自己Github账号下
-
-2.创建Heroku账号以及Heroku app
-
-3.将Heroku app与自己Github下的fork的项目进行连接
-
-4.下载配置[Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line)命令行工具
-
-5.运行`heroku login`在终端登陆，检查与heroku app的远程连接情况`git config --list | grep heroku`，若未检查到相应的app，请看[这里](http://stackoverflow.com/questions/5129598/how-to-link-a-folder-with-an-existing-heroku-app)
-
-6.运行部署，详情[请戳这里](https://devcenter.heroku.com/articles/getting-started-with-rails4#rails-asset-pipeline)
 
 
 ## 本地测试
