@@ -13,7 +13,7 @@ class CreateCourses < ActiveRecord::Migration
       t.string :class_room
       t.string :course_time
       t.string :course_week
-      
+      t.string :guidline
 
       
       t.belongs_to :teacher

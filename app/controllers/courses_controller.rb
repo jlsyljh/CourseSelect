@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
 
-  before_action :student_logged_in, only: [:select, :quit, :list, :show_credits, :degree_course, :join_degree, :table]
+  before_action :student_logged_in, only: [:select, :quit, :list, :show_credits, :degree_course, :join_degree, :table,:edit]
   before_action :teacher_logged_in, only: [:new, :create, :edit, :destroy, :update, :open, :close]#add open by qiao
   before_action :logged_in, only: :index
 
@@ -71,17 +71,214 @@ class CoursesController < ApplicationController
     @course=tmp
   end
 
-  def select
+def select
+    days = "一二三四五六日"
+    class_table = Array.new(22){Array.new(8){Array.new(12){}}}
     @course=Course.find_by_id(params[:id])
     current_user.courses<<@course
-    flash={:suceess => "成功选择课程: #{@course.name}"}
-    redirect_to courses_path, flash: flash
+    $course_num=0
+    $weeks=20
+    $flag=0
+    $conflict_course=""
+
+    while $course_num < current_user.courses.length
+      class_name = @current_user.courses[$course_num].name
+      class_time = @current_user.courses[$course_num].course_time
+      class_week = @current_user.courses[$course_num].course_week
+      temp_raw = class_time[1,1]    
+      # Recording when the class 
+      $day=0
+      $ar_ps=0 
+      while $ar_ps < days.length
+        if days[$ar_ps] == temp_raw
+          $day=$ar_ps
+        end
+        $ar_ps+=1
+      end
+      $day+=1
+      $i=0
+      $m=0
+      $n=0
+      $t=0
+      while $i < class_time.length do
+        if class_time[$i] == '('
+          $m = $i
+        end
+        if class_time[$i] == '-'
+          $n = $i
+        end
+        if class_time == ')'
+          $t = $i
+        end
+        $i+=1
+      end
+
+      # then we record when should we have class
+      $start = class_time[$m+1..$n-1].to_i
+      $end = class_time[$n+1..$t-2].to_i    
+
+      #判断是否重选或者冲突
+      class_week = class_week.delete("第")
+      class_week = class_week.delete("周")
+      class_week = class_week.split(",")
+
+      $beg1=0
+      $beg2=0
+      $end1=0
+      $beg2=0
+      $db = 0
+      if class_week.length > 1
+        temp=class_week[0].split("-")
+        $beg1=temp[0].to_i
+        $end1=temp[1].to_i  
+        temp=class_week[1].split("-")   
+        $beg2=temp[0].to_i
+        $end2=temp[1].to_i 
+        $db=1
+      else
+        temp=class_week[0].split("-")
+        $beg1=temp[0].to_i
+        $end1=temp[1].to_i 
+        $beg2=-1
+        $end2=-1 
+      end
+      sign=Array.new(23) {0}
+      $ks=0
+      while $ks<sign.length 
+        if $db == 1
+          if ((($ks>=$beg1)and($ks<=$end1))or(($ks>=$beg2)and($ks<=$end2)))
+            sign[$ks]=1
+          end
+        else
+          if (($ks>=$beg1)and($ks<=$end1))
+            sign[$ks]=1            
+          end
+        end
+        $ks+=1
+      end
+=begin
+      Rails.logger.info $day
+      Rails.logger.info $start
+      Rails.logger.info $end
+      Rails.logger.info $beg1
+      Rails.logger.info $end1
+      Rails.logger.info $beg2
+      Rails.logger.info $end2
+      Rails.logger.info "Important"      
+=end
+      $weekth=1
+      $weekday=1
+
+
+      #记录课表
+      while $weekth <= $weeks
+        if (sign[$weekth]==1)
+          #Rails.logger.info "$weekth"      
+          #Rails.logger.info $weekth
+          #周几的课
+          $weekday=$day  
+          $temp_start=$start  
+          if $flag !=0
+            break
+          end 
+          while $temp_start <= $end
+            if $course_num == current_user.courses.length-1
+              #Rails.logger.info "course_num"
+              #Rails.logger.info $course_num    
+              #Rails.logger.info $temp_start  
+              temp = class_table[$weekth][$weekday][$temp_start]
+              if temp == class_name
+                #已选
+                $flag=1
+                Rails.logger.info "已选"    
+                break
+              elsif !temp.nil?
+                #冲突其他课
+                $flag=2
+                $conflict_course=temp
+                Rails.logger.info temp      
+                Rails.logger.info class_name
+                Rails.logger.info "冲突其他课"
+                Rails.logger.info $weekth
+                Rails.logger.info $weekday
+                Rails.logger.info $temp_start
+                Rails.logger.info class_name
+                break
+              else
+                #可选课
+                class_table[$weekth][$weekday][$temp_start] = class_name
+                Rails.logger.info "$可选课xx"     
+                Rails.logger.info class_table[$weekth][$weekday][$temp_start]
+                Rails.logger.info $weekth
+                Rails.logger.info $weekday
+                Rails.logger.info $temp_start
+              end
+            else
+              class_table[$weekth][$weekday][$temp_start] = class_name   
+              Rails.logger.info "$可选课zzzzz"    
+              Rails.logger.info class_table[$weekth][$weekday][$temp_start]
+              Rails.logger.info $weekth
+              Rails.logger.info $weekday
+              Rails.logger.info $temp_start
+            end
+            $temp_start+=1
+          end        
+        end
+        $weekth+=1
+      end   
+      $course_num+=1
+    end
+
+    $lg=0
+    while $lg<current_user.courses.length
+      Rails.logger.info current_user.courses[$lg].name
+      $lg+=1
+    end
+
+    Rails.logger.info "flag"
+    Rails.logger.info $flag    
+
+
+    if $flag == 1 
+      $flag=0    
+      current_user.courses.delete(@course) 
+      #current_user.courses<<@course
+      flash={:warning => "您已经选择该课程,选课失败"}     
+      redirect_to courses_path, flash: flash    
+
+    elsif $flag == 2
+      $flag=0    
+      flash={:warning => "选课失败，#{class_name}与#{$conflict_course}时间冲突！"}  
+      current_user.courses.delete(@course) 
+      redirect_to courses_path, flash: flash 
+    else
+      lim_num = @course.limit_num+0
+      stu_num = @course.student_num+0
+      if lim_num > stu_num
+        #@course.guidline="qweqwe"
+        #Grade.create(:user_id => current_user.id, :course_id => @course.id)
+        flash={:suceess => "成功选择课程: #{@course.name}"}
+        temp_stu_num = @course.student_num+1
+        @course.update_attributes(student_num:temp_stu_num)
+        redirect_to courses_path, flash: flash
+      else
+        flash={:warning => "选课失败，选课人数已满！"}
+        current_user.courses.delete(@course) 
+        redirect_to courses_path, flash: flash 
+      end
+    end
+
   end
 
   def quit
     @course=Course.find_by_id(params[:id])
     current_user.courses.delete(@course)
     flash={:success => "成功退选课程: #{@course.name}"}
+    temp_stu_num=@course.student_num-1
+    if temp_stu_num < 0
+      temp_stu_num=0
+    end
+    @course.update_attributes(student_num:temp_stu_num)
     redirect_to courses_path, flash: flash
   end
 
@@ -243,14 +440,16 @@ class CoursesController < ApplicationController
   # Confirms a student logged-in user.
   def student_logged_in
     unless student_logged_in?
-      redirect_to root_url, flash: {danger: '请登陆'}
+      return false
+      #redirect_to root_url, flash: {danger: '学生请登陆'}
     end
   end
 
   # Confirms a teacher logged-in user.
   def teacher_logged_in
     unless teacher_logged_in?
-      redirect_to root_url, flash: {danger: '请登陆'}
+      #redirect_to root_url, flash: {danger: '老师请登陆'}
+      return false
     end
   end
 
@@ -263,7 +462,7 @@ class CoursesController < ApplicationController
 
   def course_params
     params.require(:course).permit(:course_code, :name, :course_type, :teaching_type, :exam_type,
-                                   :credit, :limit_num, :class_room, :course_time, :course_week)
+                                   :credit, :limit_num, :class_room, :course_time, :course_week, :guidline)
   end
 
 
