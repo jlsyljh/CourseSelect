@@ -1,8 +1,8 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: postgres
-  password: root
+  username: ubuntu
+  password: ubuntu
   pool: 5
 
 development:
