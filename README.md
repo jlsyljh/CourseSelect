@@ -29,13 +29,13 @@
 
 ### 截图
 
-<img src="/lib/捕获1.JPG" width="700">  
+<img src="/lib/捕获1.jpg" width="700">  
 
-<img src="/lib/捕获2.JPG" width="700">
+<img src="/lib/捕获2.jpg" width="700">
 
-<img src="/lib/捕获3.JPG" width="700">   
+<img src="/lib/捕获3.jpg" width="700">   
 
-<img src="/lib/捕获4.JPG" width="700">
+<img src="/lib/捕获4.jpg" width="700">
 
 ## 说明
 
@@ -104,7 +104,7 @@ Finished in 1.202169s, 7.4865 runs/s, 16.6366 assertions/s.
 
 9 runs, 20 assertions, 0 failures, 0 errors, 0 skips
 ```
-<img src="/lib/捕获.JPG" width="700">  
+<img src="/lib/捕获.jpg" width="700">  
 
 ### 模型测试
 
@@ -179,7 +179,7 @@ end
 
 3. 运行`rake test`,成功后会根目录的coverage下生成一个index.html文件，用浏览器打开能看到结果如下：
 
-  <img src="/lib/捕获5.JPG" width="700">  
+  <img src="/lib/捕获5.jpg" width="700">  
 
 
 ## Travis CI 线上自动测试
