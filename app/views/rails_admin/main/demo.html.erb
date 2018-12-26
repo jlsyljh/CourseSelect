@@ -2,6 +2,13 @@
 <div class="row">
   <div class="col-md-4 col-md-offset-4">
     <div class="panel panel-info">
+        <div class="panel-heading">
+            <% if $XUANKE %>
+                <h3 class="text-center">当前已开放选课功能</h3>
+            <% else %>
+                <h3 class="text-center">当前已关闭选课功能</h3>
+            <% end %>
+        </div>
         <div class="panel-body">
             <% if $XUANKE %>
                 <%= link_to "关闭选课", main_app.xuanke_course_path(current_user.courses), class: "btn btn-primary btn-block" %>
