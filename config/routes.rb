@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       get :open
       get :close
       get :join_degree
+      get :xuanke
     end
     collection do
       get :list

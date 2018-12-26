@@ -2,7 +2,7 @@ class CoursesController < ApplicationController
 
   before_action :student_logged_in, only: [:select, :quit, :list, :show_credits, :degree_course, :join_degree, :table,:edit]
   before_action :teacher_logged_in, only: [:new, :create, :edit, :destroy, :update, :open, :close]#add open by qiao
-  before_action :logged_in, only: :index
+  before_action :logged_in, only: [:index, :xuanke]
 
   @@degree = []
   #-------------------------for teachers----------------------
@@ -15,7 +15,7 @@ class CoursesController < ApplicationController
     @course = Course.new(course_params)
     if @course.save
       current_user.teaching_courses<<@course
-      redirect_to courses_path, flash: {success: "新课程申请成功"}
+      redirect_to courses_path, flash: {:success => "新课程申请成功"}
     else
       flash[:warning] = "信息填写有误,请重试"
       render 'new'
@@ -52,14 +52,14 @@ class CoursesController < ApplicationController
     @course=Course.find_by_id(params[:id])
     current_user.teaching_courses.delete(@course)
     @course.destroy
-    flash={:success => "成功删除课程: #{@course.name}"}
-    redirect_to courses_path, flash: flash
+    redirect_to courses_path, flash: {:success => "成功删除课程: #{@course.name}"}
   end
 
   #-------------------------for students----------------------
 
   def list
     #-------QiaoCode--------
+    if $XUANKE
     @courses = Course.where(:open=>true).paginate(page: params[:page], per_page: 4)
     @course = @courses-current_user.courses
     tmp=[]
@@ -69,6 +69,9 @@ class CoursesController < ApplicationController
       end
     end
     @course=tmp
+    else
+      redirect_to courses_path, flash: {:warning => "当前时间未开放选课！"}
+    end
   end
 
 def select
@@ -432,6 +435,17 @@ def select
   def index
     @course=current_user.teaching_courses.paginate(page: params[:page], per_page: 4) if teacher_logged_in?
     @course=current_user.courses.paginate(page: params[:page], per_page: 4) if student_logged_in?
+  end
+
+  def xuanke
+    if $XUANKE
+      $XUANKE = false
+	    flash={:warning => "成功关闭选课功能！"}
+    else
+      $XUANKE = true
+	    flash={:warning => "成功开通选课功能！"}
+    end
+    redirect_to rails_admin.demo_path, flash: flash
   end
 
 

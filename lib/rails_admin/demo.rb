@@ -9,6 +9,13 @@ module RailsAdmin
         register_instance_option :root do
           true
         end
+        def xuanke
+          if $XUANKE
+            $XUANKE = false
+          else
+            $XUANKE = true
+          end
+        end
       end
     end
   end
